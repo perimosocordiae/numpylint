@@ -23,7 +23,7 @@ LINTBITS = {
 }
 
 
-def lint(filepath, proj, opts):
+def lint(filepath, proj, orig_path, opts):
   mod = proj.get_file(filepath)
   if not libutils.is_python_file(proj, mod):
     if opts.verbose:
@@ -43,9 +43,11 @@ def lint(filepath, proj, opts):
         break
       changes.extend(c.changes)
     if changes:
-      print desc, '\n'
-      for c in changes:
-        print c.get_description()
+      print '%s: %s' % (orig_path, desc)
+      if opts.verbose:
+        print '\n'
+        for c in changes:
+          print c.get_description()
 
 
 def main():
@@ -57,7 +59,7 @@ def main():
   tmpdir = tempfile.mkdtemp()
   proj = Project(tmpdir, ropefolder=None)
   for f in args.files:
-    lint(os.path.relpath(f, start=tmpdir), proj, args)
+    lint(os.path.relpath(f, start=tmpdir), proj, f, args)
   proj.close()
 
 if __name__ == '__main__':
