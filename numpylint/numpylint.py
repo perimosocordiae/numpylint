@@ -19,7 +19,16 @@ LINTBITS = {
         # dot(x, diag(y))
         ('${dot}(${x}, ${diag}(${y}))', '((${x}) * (${y}))',
          dict(diag='name=numpy.diag', dot='name=numpy.dot')),
-    ]
+    ],
+    'inverting result of in1d': [
+        # ~np.in1d(x, y)
+        ('~${in1d}(${x}, ${y})', '${in1d}(${x}, ${y}, invert=True)',
+         dict(in1d='name=numpy.in1d')),
+        # ~np.in1d(x, y, assume_unique=z)
+        ('~${in1d}(${x}, ${y}, assume_unique=${z})',
+         '${in1d}(${x}, ${y}, assume_unique=${z}, invert=True)',
+         dict(in1d='name=numpy.in1d')),
+    ],
 }
 
 
