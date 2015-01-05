@@ -5,31 +5,7 @@ from rope.base.project import Project
 from rope.base import libutils
 from rope.refactor.restructure import Restructure
 
-LINTBITS = {
-    'diagonal matrix dot product': [
-        # diag(x).dot(y)
-        ('${diag}(${x}).dot(${y})', '((${x}) * (${y}).T).T',
-         dict(diag='name=numpy.diag')),
-        # dot(diag(x), y)
-        ('${dot}(${diag}(${x}), ${y})', '((${x}) * (${y}).T).T',
-         dict(diag='name=numpy.diag', dot='name=numpy.dot')),
-        # x.dot(diag(y))
-        ('${x}.dot(${diag}(${y}))', '((${x}) * (${y}))',
-         dict(diag='name=numpy.diag')),
-        # dot(x, diag(y))
-        ('${dot}(${x}, ${diag}(${y}))', '((${x}) * (${y}))',
-         dict(diag='name=numpy.diag', dot='name=numpy.dot')),
-    ],
-    'inverting result of in1d': [
-        # ~np.in1d(x, y)
-        ('~${in1d}(${x}, ${y})', '${in1d}(${x}, ${y}, invert=True)',
-         dict(in1d='name=numpy.in1d')),
-        # ~np.in1d(x, y, assume_unique=z)
-        ('~${in1d}(${x}, ${y}, assume_unique=${z})',
-         '${in1d}(${x}, ${y}, assume_unique=${z}, invert=True)',
-         dict(in1d='name=numpy.in1d')),
-    ],
-}
+from lintbits import LINTBITS
 
 
 def lint(filepath, proj, orig_path, opts):
