@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from distutils.core import setup
+from setuptools import setup
 
 version = "0.0.1"
 setup(
@@ -16,7 +16,8 @@ setup(
         'Programming Language :: Python',
     ],
     packages=['numpylint'],
+    install_requires=['rope'],
     scripts=[
-        'numpylint/numpylint.py',
+        'numpylint/numpylinter.py',
     ]
 )

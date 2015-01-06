@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import os.path
 import tempfile
 from argparse import ArgumentParser
@@ -5,7 +6,7 @@ from rope.base.project import Project
 from rope.base import libutils
 from rope.refactor.restructure import Restructure
 
-from lintbits import LINTBITS
+from numpylint.lintbits import LINTBITS
 
 
 def lint(filepath, proj, orig_path, opts):
