@@ -15,8 +15,9 @@ def lint(filepath, proj, orig_path, opts):
     if opts.verbose:
       print filepath, 'is not a Python file'
     return
-  # proj.validate(mod)
-  # libutils.analyze_module(proj, mod)
+  # These lines were suggested in the Rope docs, but don't seem to do much:
+  #   proj.validate(mod)
+  #   libutils.analyze_module(proj, mod)
   for desc, bits in LINTBITS.iteritems():
     changes = []
     for pattern, goal, args in bits:
