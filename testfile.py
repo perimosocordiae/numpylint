@@ -24,3 +24,6 @@ ways = [
 for i in xrange(len(ways)):
   for j in xrange(i+1,len(ways)):
     assert np.allclose(ways[i], ways[j])
+
+foo += foo.T
+foo += foo.T.dot(foo)

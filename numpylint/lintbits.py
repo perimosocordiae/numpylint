@@ -26,4 +26,8 @@ LINTBITS = {
          '${in1d}(${x}, ${y}, assume_unique=${z}, invert=True)',
          dict(in1d='name=numpy.in1d')),
     ],
+    'in-place transpose': [
+        # x += x.T
+        ('${x} += ${x}.T', '${x} = ${x} + ${x}.T', dict()),
+    ],
 }
