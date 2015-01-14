@@ -29,5 +29,7 @@ LINTBITS = {
     'in-place transpose': [
         # x += x.T
         ('${x} += ${x}.T', '${x} = ${x} + ${x}.T', dict()),
+        # x += x.transpose()
+        ('${x} += ${x}.transpose()', '${x} = ${x} + ${x}.T', dict()),
     ],
 }
