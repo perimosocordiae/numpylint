@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from __future__ import print_function
 import os.path
 import tempfile
 from argparse import ArgumentParser
@@ -13,8 +14,10 @@ def lint(filepath, proj, orig_path, opts):
   mod = proj.get_file(filepath)
   if not libutils.is_python_file(proj, mod):
     if opts.verbose:
-      print filepath, 'is not a Python file'
+      print('Skipping', orig_path, ' (not a Python file)')
     return
+  if opts.verbose:
+    print('Linting', orig_path)
   # These lines were suggested in the Rope docs, but don't seem to do much:
   #   proj.validate(mod)
   #   libutils.analyze_module(proj, mod)
@@ -30,11 +33,11 @@ def lint(filepath, proj, orig_path, opts):
         break
       changes.extend(c.changes)
     if changes:
-      print '%s: %s' % (orig_path, desc)
+      print('%s: %s' % (orig_path, desc))
       if opts.verbose:
-        print '\n'
+        print('\n')
         for c in changes:
-          print c.get_description()
+          print(c.get_description())
 
 
 def main():
