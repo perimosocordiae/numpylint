@@ -1,3 +1,5 @@
+import numpy as np
+
 # Dict of all the patterns with their replacements.
 # Structure:
 #   name of replacement -> list of (pattern, replacement, kwargs) tuples
@@ -26,10 +28,13 @@ LINTBITS = {
          '${in1d}(${x}, ${y}, assume_unique=${z}, invert=True)',
          dict(in1d='name=numpy.in1d')),
     ],
-    'in-place transpose': [
-        # x += x.T
-        ('${x} += ${x}.T', '${x} = ${x} + ${x}.T', dict()),
-        # x += x.transpose()
-        ('${x} += ${x}.transpose()', '${x} = ${x} + ${x}.T', dict()),
-    ],
 }
+
+if np.lib.NumpyVersion(np.__version__) < '1.3.0':
+  # this bug was fixed in numpy 1.3.0
+  LINTBITS['in-place transpose'] = [
+      # x += x.T
+      ('${x} += ${x}.T', '${x} = ${x} + ${x}.T', dict()),
+      # x += x.transpose()
+      ('${x} += ${x}.transpose()', '${x} = ${x} + ${x}.T', dict()),
+  ]
